@@ -4,14 +4,6 @@ data class Task(
 
     val  id : Long,
     val title: String,
+//    var done: Boolean
 
-){
-
-    companion object {
-        const val TABLE_NAME = Categories
-        const val TABLE_NAME = Categories
-        const val TABLE_NAME = Categories
-
-
-    }
-}
+)
