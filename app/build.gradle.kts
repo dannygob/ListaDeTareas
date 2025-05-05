@@ -34,7 +34,9 @@ android {
         jvmTarget = "11"
     }
 }
-
+buildFeature{
+    .visibility = android.view.View.VISIBLE
+}
 dependencies {
 
     implementation(libs.androidx.core.ktx)
