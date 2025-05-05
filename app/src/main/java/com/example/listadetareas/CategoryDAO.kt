@@ -3,7 +3,7 @@ package com.example.listadetareas
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
-import kotlin.math.log
+import com.example.listadetareas.manager.DatabaseManager
 
 class CategoryDAO (private val context: Context) {
 
@@ -55,14 +55,7 @@ fun udate (category: Category){
 
         val selection = "${Category.COLUMN_NAME_ID}= ${category.id}"
 
-        val selectionArgs= arrayOf("MyOldTitle")
-
-
-        val count = db.update (
-            Category.TABLE_NAME,
-            values,
-            selection,
-            selectionArgs)
+        val count = db.update (Category.TABLE_NAME, values, selection, null)
 
     Log.i("DATABASE", "Udate category with id: $newRowId")
 } catch (e: Exception) {
