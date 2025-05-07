@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.example.listadetareas"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.listadetareas"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -33,9 +33,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-}
-buildFeature{
-    .visibility = android.view.View.VISIBLE
+
+    buildFeatures{
+        viewBinding = true
+    }
 }
 dependencies {
 
