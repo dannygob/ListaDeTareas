@@ -48,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         }, { position ->
             val category = categoryList[position]
             showCategoryDialog(category)
+
+            //Editar categoria
         }, { position ->
             val category = categoryList[position]
             categoryDAO.delete(category)
@@ -83,10 +85,8 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton(android.R.string.ok, { dialog, which ->
                 category.title = dialogBinding.titleEditText.text.toString()
                 if (category.id != -1L) {
-                    categoryDAO.update(category)
-                } else {
-                    categoryDAO.insert(category)
-                }
+                    categoryDAO.update(category)}
+
                 loadData()
             })
             .setNegativeButton(android.R.string.cancel, null)
