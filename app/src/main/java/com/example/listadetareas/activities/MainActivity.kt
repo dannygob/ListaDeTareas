@@ -51,9 +51,7 @@ class MainActivity : AppCompatActivity() {
 
             //Editar categoria
         }, { position ->
-            val category = categoryList[position]
-            categoryDAO.delete(category)
-            loadData()
+            showDeleteConfirmation(position)
         })
 
         binding.recyclerView.adapter = adapter
@@ -92,6 +90,16 @@ class MainActivity : AppCompatActivity() {
             .setNegativeButton(android.R.string.cancel, null)
             .setIcon(dialogIcon)
             .show()
+    }
+    fun showDeleteConfirmation(position:Int){
+        val category = categoryList[position]
+        categoryDAO.delete(category)
+        loadData()
+        val category = categoryList[position]
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Borrar Categoria")
+            .setMessage()
+
     }
 
     fun loadData() {
