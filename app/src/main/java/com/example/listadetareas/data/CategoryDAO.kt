@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.util.Log
 import com.example.listadetareas.utils.DatabaseManager
 
-
 class CategoryDAO(private val context: Context) {
 
     private lateinit var db: SQLiteDatabase
