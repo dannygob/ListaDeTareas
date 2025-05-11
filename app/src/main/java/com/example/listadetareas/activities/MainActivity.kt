@@ -1,6 +1,7 @@
 package com.example.listadetareas.activities
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -43,14 +44,19 @@ class MainActivity : AppCompatActivity() {
 
         categoryList = categoryDAO.findAll()
 
-        adapter = CategoryAdapter(categoryList, {
+        adapter = CategoryAdapter(categoryList, { position ->
             // He pulsado una categoría
+            val category = categoryList[position]
+
+            val intent = Intent(this, TaskListActivity::class.java)
+            intent.putExtra("CATEGORY_ID", category.id)
+            startActivity(intent)
         }, { position ->
+            // Edit
             val category = categoryList[position]
             showCategoryDialog(category)
-
-            //Editar categoria
         }, { position ->
+            // Delete
             showDeleteConfirmation(position)
         })
 
@@ -83,23 +89,30 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton(android.R.string.ok, { dialog, which ->
                 category.title = dialogBinding.titleEditText.text.toString()
                 if (category.id != -1L) {
-                    categoryDAO.update(category)}
-
+                    categoryDAO.update(category)
+                } else {
+                    categoryDAO.insert(category)
+                }
                 loadData()
             })
             .setNegativeButton(android.R.string.cancel, null)
             .setIcon(dialogIcon)
             .show()
     }
-    fun showDeleteConfirmation(position:Int){
-        val category = categoryList[position]
-        categoryDAO.delete(category)
-        loadData()
-        val category = categoryList[position]
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Borrar Categoria")
-            .setMessage()
 
+    fun showDeleteConfirmation(position: Int) {
+        val category = categoryList[position]
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Borrar categoría")
+            .setMessage("¿Está usted seguro de querer borrar esta categoría? Borrar la categoría, eliminará todas sus tareas!")
+            .setPositiveButton(android.R.string.ok, { dialog, which ->
+                categoryDAO.delete(category)
+                loadData()
+            })
+            .setNegativeButton(android.R.string.cancel, null)
+            .setIcon(R.drawable.ic_delete)
+            .show()
     }
 
     fun loadData() {

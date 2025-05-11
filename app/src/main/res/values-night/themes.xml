@@ -3,5 +3,7 @@
     <style name="Base.Theme.ListaDeTareas" parent="Theme.Material3.DayNight">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="watermark">@drawable/watermark</item> <!-- Para tema oscuro -->
+
     </style>
 </resources>
