@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="?attr/watermark"
-        android:scaleType="centerCrop"
+        android:scaleType="center"
         android:alpha="0.2"/>
 
 </LinearLayout>

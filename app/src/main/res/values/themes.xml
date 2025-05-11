@@ -4,9 +4,10 @@
 
         <item name="watermark">@drawable/watermark</item> <!-- Para tema claro -->
 
+
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
-
     <style name="Theme.ListaDeTareas" parent="Base.Theme.ListaDeTareas" />
+
 </resources>

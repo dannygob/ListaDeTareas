@@ -16,11 +16,12 @@
         android:layout_weight="1"
         android:text="Task name"
         android:textAppearance="@style/TextAppearance.Material3.TitleLarge"/>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="?attr/watermark"
-        android:scaleType="centerCrop"
-        android:alpha="0.2"/>
+        android:alpha="0.2"
+        android:scaleType="center"
+        android:src="?attr/watermark" />
 
 </LinearLayout>
