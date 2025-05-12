@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="16dp"
-    android:paddingHorizontal="8dp">
+    android:orientation="vertical">
+<ImageView
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:src="?attr/watermark"
+android:scaleType="center"
+android:alpha="0.2"/>
+
+<!--    android:paddingTop="16dp"-->
+<!--    android:paddingHorizontal="8dp">-->
 
     <TextView
         android:layout_width="match_parent"
@@ -15,11 +22,6 @@
         android:id="@+id/titleEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="?attr/watermark"
-        android:scaleType="center"
-        android:alpha="0.2"/>
 
-</LinearLayout>
+
+</FrameLayout>

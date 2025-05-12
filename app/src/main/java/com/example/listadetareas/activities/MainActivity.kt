@@ -63,6 +63,11 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
+//        Esto e  para tener el reciclerview en horizontal
+//        binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+
+
         binding.addCategoryButton.setOnClickListener {
             showCategoryDialog(Category(-1L, ""))
         }

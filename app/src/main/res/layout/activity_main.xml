@@ -24,11 +24,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add"/>
-<!--    <ImageView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:src="?attr/watermark"-->
-<!--        android:scaleType="center"-->
-<!--        android:alpha="0.2"/>-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.2"
+        android:scaleType="center"
+        android:src="?attr/watermark" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
