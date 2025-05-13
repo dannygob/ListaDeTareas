@@ -2,6 +2,7 @@
 package com.example.listadetareas.adapters
 
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -11,7 +12,8 @@ import com.example.listadetareas.databinding.ItemTaskBinding
 class TaskAdapter(
     var items: List<Task>,
     val onItemClick: (position: Int) -> Unit,
-    val onItemCheck: (position: Int) -> Unit
+    val onItemCheck: (position: Int) -> Unit,
+    val onItemMenu: Menu
 ): Adapter<TaskViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -34,6 +36,7 @@ class TaskAdapter(
                 onItemCheck(position)
             }
         }
+        holder
     }
 
     fun updateItems(items: List<Task>) {
