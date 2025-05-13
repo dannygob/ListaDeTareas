@@ -209,6 +209,7 @@ class TaskDAO(private val context: Context) {
                 null,                   // don't group the rows
                 null,                   // don't filter by row groups
                 null               // The sort order
+                Task.columnNameDone + " ASC" // The sort order
             )
 
             while (cursor.moveToNext()) {

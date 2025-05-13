@@ -48,9 +48,15 @@ class TaskListActivity : AppCompatActivity() {
         category = categoryDAO.findById(id)!!
         taskList = emptyList()
 
-        adapter = TaskAdapter(taskList, {
+        adapter = TaskAdapter(taskList, {position: Int ->
+            val task = taskList[position]
+            val intent = Intent(this, TaskActivity::class.java)
             // He hecho click en una tarea
-        }, {
+        }, {position: Int ->
+            val task = taskList[position]
+            task.done = !task.done
+            taskDAO.update(task)
+            reload
             // He checkeado una tarea
         })
 
@@ -70,6 +76,10 @@ class TaskListActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        taskList = taskDAO.findAllByCategory(category)
+        adapter.updateItems(taskList)
+    }
+    fun reloadResume() {
         taskList = taskDAO.findAllByCategory(category)
         adapter.updateItems(taskList)
     }
