@@ -54,9 +54,9 @@ class TaskActivity : AppCompatActivity() {
             task.title =title
             if (task.id==-1L){
                 taskDAO.insert(task)
+            } else {
+                taskDAO.update(task)
             }
-            task = Task(-1L, title, false, category)
-            taskDAO.insert(task)
             finish()
         }
     }

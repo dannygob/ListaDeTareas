@@ -29,6 +29,13 @@
         android:layout_weight="1"
         android:text="Task name"
         android:textAppearance="@style/TextAppearance.Material3.TitleLarge"/>
+        <Button
+            style="?attr/materialIconButtonStyle"
+            android:id="@+id/menuButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_menu_overflow"/>
+
 <!--    <TextView-->
 <!--        android:id="@+id/titleTextView"-->
 <!--        android:layout_width="0dp"-->

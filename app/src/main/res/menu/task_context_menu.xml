@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/ic_edit"
+        android:title="Editar"
+        android:id="@+id/action_edit" />
+    <item
+        android:icon="@drawable/ic_delete"
+        android:title="Borrar"
+        android:id="@+id/action_delete"/>
+<!--    <item android:id="@+id/option_3"-->
+<!--        android:title="Option 3" />-->
+</menu>
