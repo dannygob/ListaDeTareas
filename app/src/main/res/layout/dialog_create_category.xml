@@ -2,13 +2,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-<ImageView
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:src="?attr/watermark"
-android:scaleType="center"
-android:alpha="0.2"/>
+    android:paddingTop="16dp"
+    android:orientation="vertical"
+    android:paddingHorizontal="8dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="?attr/watermark"
+        android:scaleType="center"
+        android:alpha="0.2" />
 
 <!--    android:paddingTop="16dp"-->
 <!--    android:paddingHorizontal="8dp">-->
@@ -21,7 +24,9 @@ android:alpha="0.2"/>
     <EditText
         android:id="@+id/titleEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:paddingHorizontal="8dp" />
 
 
 </FrameLayout>

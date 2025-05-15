@@ -1,23 +1,20 @@
 package com.example.listadetareas.activities
 
 import android.content.Intent
-import android.graphics.drawable.InsetDrawable
+import android.os.Build
 import android.os.Bundle
-import android.text.style.IconMarginSpan
-import android.util.TypedValue
-import android.view.Menu
+import android.view.ContextMenu
 import android.view.MenuItem
+import android.view.View
 import android.widget.AdapterView
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.menu.MenuBuilder
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.listadetareas.R
-import com.example.listadetareas.R.menu
 import com.example.listadetareas.adapters.TaskAdapter
 import com.example.listadetareas.data.Category
 import com.example.listadetareas.data.CategoryDAO
@@ -25,16 +22,14 @@ import com.example.listadetareas.data.Task
 import com.example.listadetareas.data.TaskDAO
 import com.example.listadetareas.databinding.ActivityTaskListBinding
 
+
 class TaskListActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityTaskListBinding
-
     lateinit var categoryDAO: CategoryDAO
     lateinit var category: Category
-
     lateinit var taskDAO: TaskDAO
     lateinit var taskList: List<Task>
-
     lateinit var adapter: TaskAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,8 +55,9 @@ class TaskListActivity : AppCompatActivity() {
         adapter = TaskAdapter(taskList, {position: Int ->
             val task = taskList[position]
             val intent = Intent(this, TaskActivity::class.java)
-            intent.putExtra ( "CATEGORY_ID", category. id)
+            intent.putExtra("CATEGORY_ID", category.id)
             intent.putExtra( "TASK_ID", task.id)
+            startActivity(intent)
             // He hecho click en una tarea
         }, { position ->
             val task = taskList[position]
@@ -70,7 +66,7 @@ class TaskListActivity : AppCompatActivity() {
             reloadData()
         }, { position, v ->
             val popup= PopupMenu(this, v)
-            popup.menuInflater.inflate(menu, popup.menu)
+            popup.menuInflater.inflate(R.menu.task_context_menu, popup.menu)
 
             popup.setOnMenuItemClickListener{menuItem: MenuItem ->
             return@setOnMenuItemClickListener when (menuItem.itemId) {
@@ -87,33 +83,16 @@ class TaskListActivity : AppCompatActivity() {
                 R.id.action_delete -> {
                     Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show()
                     println("Delete-> $position")
-                    taskDAO.delete(task)
+                    val taskToDelete = taskList[position] // Get the task using position
+                    taskDAO.delete(taskToDelete) // Use the correctly accessed task
                     reloadData()
                     true
             }
             else -> super.onContextItemSelected(menuItem)
             }
-
-        }
-           if (popup.menu is MenuBuilder) {
-               val menuBuilder = popup.menu as MenuBuilder
-                menuBuilder,sertOptionalIconsVisible(true)
-               for (item in menuBuilder.visibleItems){
-                   val iconMarginPx =
-                       TypedValue.applyDimension(
-                           TypedValue.COMPLEX_UNIT_DIP, IconMargin.toFloat(),resources.displayMetrics
-                                   -toInt ( )
-                           if (item. icon != null) ‹ |
-                   if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-                       item. icon = InsetDrawable(item.icon, iconMarginPx, 0, iconMarginPx,0)
-                   }
-                   else {item. icon =
-                       object : InsetDrawable(item.icon, iconMarginPx, 0, iconMarginPx,
-                           0)
-                       override fun getIntrinsicWidth(): Int { |
-                       return intrinsicHeight + iconMarginPx + iconMarginPx
-                       )
-               }
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                popup.setForceShowIcon(true)
             }
 
             popup.show()
@@ -137,36 +116,37 @@ class TaskListActivity : AppCompatActivity() {
 
         reloadData()
     }
+
     fun reloadData() {
         taskList = taskDAO.findAllByCategory(category)
         adapter.updateItems(taskList)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?,
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
         menuInflater.inflate(R.menu.task_context_menu, menu)
-        return true
     }
-    //then, to handle the menu item click
-    override fun onContextIntemSelected(item: MenuItem): Boolean {
+
+    // Then, to handle clicks:
+    override fun onContextItemSelected(item: MenuItem): Boolean {
         val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
         return when (item.itemId) {
-            R.id.action_edit-> {
-                val task = taskList[info.position]
-                taskDAO.delete(task)
-                reloadData()
+            R.id.action_edit -> {
+                // Respond to context menu item 1 click.
                 true
             }
-            R.id.action_delete-> {
-                val task = taskList[info.position]
-                taskDAO.delete(task)
-                reloadData()
+
+            R.id.action_delete -> {
+                // Respond to context menu item 2 click.
                 true
             }
             else -> super.onContextItemSelected(item)
         }
     }
-
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -178,3 +158,4 @@ class TaskListActivity : AppCompatActivity() {
         }
     }
 }
+

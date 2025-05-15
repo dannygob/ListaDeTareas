@@ -15,10 +15,8 @@ import com.example.listadetareas.databinding.ActivityTaskBinding
 class TaskActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityTaskBinding
-
     lateinit var category: Category
     lateinit var task: Task
-
     lateinit var taskDAO: TaskDAO
     lateinit var categoryDAO: CategoryDAO
 
@@ -39,14 +37,15 @@ class TaskActivity : AppCompatActivity() {
         taskDAO = TaskDAO(this)
 
         val categoryId = intent.getLongExtra("CATEGORY_ID", -1)
-
         category = categoryDAO.findById(categoryId)!!
+
         val id = intent.getLongExtra("TASK_ID", -1)
         if (id==-1L){
             task = Task(id = -1L, title = "", done = false, category = category)
         } else {
             task = taskDAO.findById(id)!!
         }
+
         binding.titleEditText.setText(task.title)
 
         binding.saveButton.setOnClickListener {
