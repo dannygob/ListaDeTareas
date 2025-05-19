@@ -116,6 +116,8 @@ class TaskDAO(private val context: Context) {
                 val id = cursor.getLong(cursor.getColumnIndexOrThrow(Task.COLUMN_NAME_ID))
                 val title = cursor.getString(cursor.getColumnIndexOrThrow(Task.COLUMN_NAME_TITLE))
                 val done = cursor.getInt(cursor.getColumnIndexOrThrow(Task.COLUMN_NAME_DONE)) != 0
+                val position =
+                    cursor.getInt(cursor.getColumnIndexOrThrow(Task.COLUMN_NAME_POSITION)) != 0
                 val categoryId = cursor.getLong(cursor.getColumnIndexOrThrow(Task.COLUMN_NAME_CATEGORY))
 
                 val category = CategoryDAO(context).findById(categoryId)!!
@@ -158,7 +160,7 @@ class TaskDAO(private val context: Context) {
                 null,          // The values for the WHERE clause
                 null,                   // don't group the rows
                 null,                   // don't filter by row groups
-                null               // The sort order
+                Task.COLUMN_POSITION            // The sort order
             )
 
             while (cursor.moveToNext()) {
@@ -187,7 +189,7 @@ class TaskDAO(private val context: Context) {
     fun findAllByCategory(category: Category): List<Task> {
         open()
 
-        var taskList: MutableList<Task> = mutableListOf()
+        val taskList: MutableList<Task> = mutableListOf()
         try {
             // Define a projection that specifies which columns from the database
             // you will actually use after this query.
@@ -195,7 +197,8 @@ class TaskDAO(private val context: Context) {
                 Task.COLUMN_NAME_ID,
                 Task.COLUMN_NAME_TITLE,
                 Task.COLUMN_NAME_DONE,
-                Task.COLUMN_NAME_CATEGORY
+                Task.COLUMN_NAME_CATEGORY,
+                Task.COLUMN_NAME_POSITION
             )
 
             // Filter results WHERE "id" = task.id

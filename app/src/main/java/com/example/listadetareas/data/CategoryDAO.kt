@@ -166,3 +166,6 @@ class CategoryDAO(private val context: Context) {
         return categoryList
     }
 }
+
+fun countAllByCategory(category: Category)Int
+}

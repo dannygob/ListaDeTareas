@@ -47,5 +47,10 @@ class CategoryViewHolder(val binding: ItemCategoryBinding) : ViewHolder(binding.
 
     fun render(category: Category) {
         binding.titleTextView.text = category.title
+        val taskDAO = TaskDAO(binding.root.context)
+        val left = taskDAO.countTasksLeft(category)
+        val totalnumber = taskDAO.countTasksTotal(category)
+
+        binding.taskCountTextView.text = "$left/$totalnumber"
     }
 }

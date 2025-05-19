@@ -13,6 +13,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.listadetareas.R
 import com.example.listadetareas.adapters.TaskAdapter
@@ -100,6 +101,7 @@ class TaskListActivity : AppCompatActivity() {
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        configureGesture()
 
         supportActionBar?.title = category.title
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -157,5 +159,73 @@ class TaskListActivity : AppCompatActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
     }
+}
+
+fun showTas(position: Int) {
+    val task = taskList[position]
+    task.done = !task.done
+    taskDAO.update(task)
+}
+
+fun showTaskMenu(position: Int, v: View) {
+    val popup = PopupMenu(this, v)
+    popup.menuInflater.inflate(R.menu.task_context_menu, popup.menu)
+
+    popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+        return@setOnMenuItemClickListener when (menuItem.itemId) {
+            R.id.action_edit -> {
+                val intent = Intent(this, TaskActivity::class.java)
+                intent.putExtra("CATEGORY_ID", category.id)
+                intent.putExtra("TASK_ID", taskList[position].id)
+                startActivity(intent)
+                Toast.makeText(this, "Editar", Toast.LENGTH_SHORT).show()
+                println("Editar -> $position")
+                true
+            }
+
+            R.id.action_delete -> {
+                Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show()
+                println("Delete-> $position")
+                val taskToDelete = taskList[position] // Get the task using position
+                taskDAO.delete(taskToDelete) // Use the correctly accessed task
+                reloadData()
+                true
+            }
+
+            else -> super.onContextItemSelected(menuItem)
+        }
+    }
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        popup.setForceShowIcon(true)
+    }
+
+    popup.show()
+}
+
+fun configureGesture() {
+    val gesture = ItemTouchHelper(object :
+        ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN) {)
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            swapTaskPosition(viewHolder.adapterPosition],
+            taskList[target.adapterPosition]
+            )
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            if (direction == ItemTouchHelper.LEFT) {
+
+                //Eraser
+
+            }
+            adapter.notifyItemRemoved(viewHolder.adapterPosition)
+        }
+    })
+}
+gesture.attachToRecyclerView(binding.recyclerView)
 }
 
