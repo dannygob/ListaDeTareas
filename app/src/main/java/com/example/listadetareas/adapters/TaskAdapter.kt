@@ -2,7 +2,6 @@
 package com.example.listadetareas.adapters
 
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -30,22 +29,24 @@ class TaskAdapter(
         val task = items[position]
         holder.render(task)
         holder.itemView.setOnClickListener {
-            onItemClick(position)
+            onItemClick(holder.adapterPosition)
         }
         holder.binding.doneCheckBox.setOnCheckedChangeListener { compoundButton, b ->
             if (holder.binding.doneCheckBox.isPressed) {
-                onItemCheck(position)
+                onItemCheck(holder.adapterPosition)
             }
         }
         holder.binding.menuButton.setOnClickListener { view ->
-            onItemMenu(position, view)
+            onItemMenu(holder.adapterPosition, view)
             true
         }
     }
 
     fun updateItems(items: List<Task>) {
+        val diffCallback = TaskDiffUtil(items, this.items)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.items = items
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 }
 
