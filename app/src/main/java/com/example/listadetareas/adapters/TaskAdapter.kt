@@ -4,7 +4,7 @@ package com.example.listadetareas.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView.Adapter
+import android.widget.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.listadetareas.data.Task
 import com.example.listadetareas.databinding.ItemTaskBinding
@@ -38,7 +38,6 @@ class TaskAdapter(
         }
         holder.binding.menuButton.setOnClickListener { view ->
             onItemMenu(holder.adapterPosition, view)
-            true
         }
     }
 
@@ -48,8 +47,6 @@ class TaskAdapter(
         this.items = items
         diffResult.dispatchUpdatesTo(this)
     }
-
-
 }
 
 class TaskViewHolder(val binding: ItemTaskBinding) : ViewHolder(binding.root) {

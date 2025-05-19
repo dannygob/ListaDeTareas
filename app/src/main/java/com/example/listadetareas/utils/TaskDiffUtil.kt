@@ -4,15 +4,14 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.listadetareas.data.Task
 
 class TaskDiffUtil(val newList: List<Task>, val oldList: List<Task>) : DiffUtil.Callback() {
-    override fun getOldListSize(): Int = oldList.size
 
+    override fun getOldListSize(): Int = oldList.size
 
     override fun getNewListSize(): Int = newList.size
     // Se llama para comparar los elementos de la lista
 
-
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPositionl].id == newList[newItemPosition].id
+        return oldList[oldItemPosition].id == newList[newItemPosition].id
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
