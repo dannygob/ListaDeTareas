@@ -48,6 +48,8 @@ class TaskAdapter(
         this.items = items
         diffResult.dispatchUpdatesTo(this)
     }
+
+
 }
 
 class TaskViewHolder(val binding: ItemTaskBinding) : ViewHolder(binding.root) {
